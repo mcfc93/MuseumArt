@@ -1,7 +1,7 @@
 import React, {  } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './components/Home';
+import DetailPreview from './components/DetailPreview';
 import ErrorPage from './components/ErrorPage';
 
 import * as Page from './util/Page';
@@ -13,13 +13,14 @@ export default function App() {
           <BrowserRouter basename={baseUrl}>
               <Switch>
                   <Route exact path="/">
-                      <Layout>
-                          <Home />
-                      </Layout>
+                      <Layout />
                   </Route>
                   <Route exact path={Page.HOME}>
+                      <Layout />
+                  </Route>
+                  <Route exact path={Page.ITEM + "/:id"}>
                       <Layout>
-                          <Home />
+                          <DetailPreview />
                       </Layout>
                   </Route>
                   <Route path="*">
