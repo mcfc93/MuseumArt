@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import React, {  } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home from './components/Home';
+import ErrorPage from './components/ErrorPage';
 
-import './custom.css'
+import * as Page from './util/Page';
 
-export default class App extends Component {
-  static displayName = App.name;
+const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+export default function App() {
+      return (
+          <BrowserRouter basename={baseUrl}>
+              <Switch>
+                  <Route exact path="/">
+                      <Layout>
+                          <Home />
+                      </Layout>
+                  </Route>
+                  <Route exact path={Page.HOME}>
+                      <Layout>
+                          <Home />
+                      </Layout>
+                  </Route>
+                  <Route path="*">
+                      <ErrorPage code="404" description="Not Found" />
+                  </Route>
+              </Switch>
+          </BrowserRouter>
     );
-  }
 }
