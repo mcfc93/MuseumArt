@@ -2,6 +2,7 @@ import React, {  } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import DetailPreview from './components/DetailPreview';
+import Edit from './components/Edit';
 import ErrorPage from './components/ErrorPage';
 
 import * as Page from './util/Page';
@@ -22,6 +23,9 @@ export default function App() {
                       <Layout>
                           <DetailPreview />
                       </Layout>
+                  </Route>
+                  <Route exact path={Page.EDIT + "/:id"}>
+                      <Edit />
                   </Route>
                   <Route path="*">
                       <ErrorPage code="404" description="Not Found" />

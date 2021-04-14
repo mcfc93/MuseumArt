@@ -14,7 +14,7 @@ body {
     width: 320px;
     height: 100vh;
     user-select: none;
-    border-right: 2px solid black;
+    border-right: 2px solid gray;
     padding: 20px;
     overflow-y: auto;
 }
@@ -28,28 +28,36 @@ body {
     flex-direction: column;
 }
 
-
-
-
-
-
-.error-page {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+.primary-button {
+    width: 150px;
+    color: white;
+    background-color: dodgerblue;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 7px;
+    border: 2px solid dodgerblue;
+    cursor: pointer;
 }
 
-    .error-page span:nth-child(1) {
-        font-size: 100px;
-        font-weight: bold;
-        color: red;
+.secondary-button {
+    width: 150px;
+    color: dodgerblue;
+    background-color: white;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 7px;
+    border: 2px solid dodgerblue;
+    cursor: pointer;
+}
+
+    .primary-button:hover,
+    .secondary-button:hover {
+        opacity: 0.5;
     }
 
-    .error-page span:nth-child(2) {
-        font-size: 40px;
+    .primary-button:disabled,
+    .secondary-button:disabled {
+        opacity: 0.5;
     }
 
 .navigation-item {
@@ -72,15 +80,9 @@ body {
             transition: all 0.3s ease;
         }
 
-
-
-
-
-
 .detail-preview {
     box-sizing: border-box;
     height: 100%;
-    padding: 20px;
 }
     /*
     .detail-preview * {
@@ -93,34 +95,97 @@ body {
         display: block;
         margin-left: auto;
         margin-right: auto;
+        box-sizing: border-box;
         height: 40%;
+        padding: 20px;
     }
 
     .detail-preview .details {
+        box-sizing: border-box;
         height: 60%;
+        padding: 20px;
+        border-top: 2px solid gray;
     }
 
         .detail-preview .details .name {
             
         }
-
-            .detail-preview .details .name button {
-                width: 150px;
-                color: white;
-                background-color: dodgerblue;
-                border-radius: 10px;
-                font-weight: bold;
-                padding: 10px;
-                border: none;
-                cursor: pointer;
-            }
-
-                .detail-preview .details .name button:hover {
-                    opacity: 0.5;
-                }
             
         .detail-preview .details .description {
             height: calc(100% - 72px);
             overflow-y: scroll;
             white-space: pre-wrap;
         }
+
+.edit {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+    .edit .left-column,
+    .edit .right-column {
+        box-sizing: border-box;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .edit .left-column {
+        border-right: 2px solid gray;
+        padding: 20px;
+    }
+
+    .edit .right-column {
+        
+    }
+
+    .edit input[type='text'],
+    .edit textarea {
+        border: 2px solid gray;
+        border-radius: 10px;
+        display: inline-block;
+
+        width: calc(100% - 20px);
+
+        height: 17px;
+        font-size: 13px;
+        background: transparent;
+        outline: none;
+        padding: 5px;
+    }
+
+    .edit textarea {
+        font-family: 'Segoe UI', sans-serif;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        resize: none;
+        height: 200px;
+    }
+
+    .edit input[type='text'].invalid {
+        border: 2px solid red;
+    }
+
+    .edit .error-message {
+        color: red;
+    }
+
+.error-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    .error-page span:nth-child(1) {
+        font-size: 100px;
+        font-weight: bold;
+        color: red;
+    }
+
+    .error-page span:nth-child(2) {
+        font-size: 40px;
+    }

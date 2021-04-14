@@ -1,18 +1,27 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import * as Page from '../util/Page';
 import * as Url from '../util/Url';
 
-export default function DetailPreview() {
+export default function DetailPreview(props) {
     const { id } = useParams();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(props.item ? props.item : {});
 
     useEffect(() => {
-        if (localStorage.getItem(id) === null) {
-            fetchData();
-        } else {
-            setData(JSON.parse(localStorage.getItem(id)));
-        }
+        //if (!props.item) {
+            if (localStorage.getItem(id) === null) {
+                fetchData();
+            } else {
+                setData(JSON.parse(localStorage.getItem(id)));
+            }
+        //}
     }, [id]);
+
+    useEffect(() => {
+        if (props.item) {
+            setData(props.item);
+        }
+    }, [props.item]);
 
     async function fetchData() {
         //setLoading(true);
@@ -45,7 +54,17 @@ export default function DetailPreview() {
             <div className="details">
                 <h2 className="name">
                     {data.name}
-                    <button style={{ float: 'right' }}>Edit</button>
+
+                    {
+                        !props.hideButton &&
+                        <NavLink
+                            to={Page.EDIT + "/" + data.id}
+                            exact={true}
+                            activeClassName=""
+                        >
+                            <button className="primary-button" style={{ float: 'right' }}>Edit</button>
+                        </NavLink>
+                    }
                 </h2>
                 <p className="description">{data.description}</p>
             </div>
