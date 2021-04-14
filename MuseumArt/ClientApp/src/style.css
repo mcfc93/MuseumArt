@@ -1,7 +1,13 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
+    color: gray;
 }
+
+    body * {
+        scrollbar-color: gray #ededed;
+        scrollbar-width: thin;
+    }
 
 .container {
     width: 100%;
@@ -14,10 +20,72 @@ body {
     width: 320px;
     height: 100vh;
     user-select: none;
-    border-right: 2px solid gray;
+    border-right: 2px solid #ededed;
     padding: 20px;
     overflow-y: auto;
+    color: gray;
 }
+
+    .tree .radio-container {
+        margin-bottom: 20px;
+    }
+
+        .tree .radio-container label {
+            padding: 10px;
+        }
+
+    .tree .search {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .tree .search > input {
+            padding-right: 30px;
+            width: calc(100% - 45px);
+        }
+
+        .tree .search > i {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: gray;
+        }
+
+
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: gray;
+}
+
+.wings {
+    margin-left: 20px;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    padding: 5px;
+}
+
+    .collection:hover,
+    .items:hover {
+        color: dodgerblue;
+        transition: all 0.3s ease;
+    }
+
+    .items.active {
+        color: dodgerblue;
+    }
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+
 
 .content {
     box-sizing: border-box;
@@ -60,25 +128,30 @@ body {
         opacity: 0.5;
     }
 
-.navigation-item {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    width: calc(230px - 20px);
-    margin: 10px;
-    text-decoration: none;
+input[type='text'],
+textarea {
+    border: 2px solid gray;
+    border-radius: 10px;
+    display: inline-block;
+    width: calc(100% - 20px);
+    height: 17px;
+    font-size: 13px;
+    background: transparent;
+    outline: none;
+    padding: 5px;
 }
 
-    .navigation-item:hover .navigation-icon .material-icons,
-    .navigation-item:hover .navigation-heading {
-        color: red;
-        transition: all 0.3s ease;
-    }
+textarea {
+    font-family: 'Segoe UI', sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+    /*height: 200px;*/
+}
 
-        .navigation-item.active .navigation-heading {
-            color: red;
-            transition: all 0.3s ease;
-        }
+input[type='text'].invalid {
+    border: 2px solid red;
+}
 
 .detail-preview {
     box-sizing: border-box;
@@ -104,7 +177,7 @@ body {
         box-sizing: border-box;
         height: 60%;
         padding: 20px;
-        border-top: 2px solid gray;
+        border-top: 2px solid #ededed;
     }
 
         .detail-preview .details .name {
@@ -113,7 +186,7 @@ body {
             
         .detail-preview .details .description {
             height: calc(100% - 72px);
-            overflow-y: scroll;
+            overflow-y: auto;
             white-space: pre-wrap;
         }
 
@@ -132,44 +205,52 @@ body {
     }
 
     .edit .left-column {
-        border-right: 2px solid gray;
+        border-right: 2px solid #ededed;
         padding: 20px;
     }
 
+        .edit .left-column label {
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .edit .left-column .label-description {
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+        .edit .left-column input[type='text'],
+        .edit .left-column textarea {
+            color: gray;
+            margin-top: 10px;
+        }
+
+        .edit .left-column textarea {
+            font-family: 'Segoe UI', sans-serif;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            resize: none;
+            min-height: 50px;
+            max-height: 500px;
+            height: calc(100% - 40px);
+        }
+
+        .edit .left-column .buttons{
+            padding: 20px 10px;
+        }
+
+            .edit .left-column .buttons a {
+                margin-right: 20px;
+            }
+    
     .edit .right-column {
-        
     }
 
-    .edit input[type='text'],
-    .edit textarea {
-        border: 2px solid gray;
-        border-radius: 10px;
-        display: inline-block;
-
-        width: calc(100% - 20px);
-
-        height: 17px;
-        font-size: 13px;
-        background: transparent;
-        outline: none;
-        padding: 5px;
-    }
-
-    .edit textarea {
-        font-family: 'Segoe UI', sans-serif;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        resize: none;
-        height: 200px;
-    }
-
-    .edit input[type='text'].invalid {
-        border: 2px solid red;
-    }
-
-    .edit .error-message {
-        color: red;
-    }
+.error-message {
+    color: red;
+    font-size: 10px;
+    padding-left: 10px;
+}
 
 .error-page {
     display: flex;

@@ -7,9 +7,9 @@ export default function Edit() {
     const { id } = useParams();
     const temp = JSON.parse(localStorage.getItem(id));
     const [item, setItem] = useState(temp);
-    const [name, setName] = useState(temp.name);
-    const [url, setUrl] = useState(temp.url);
-    const [description, setDescription] = useState(temp.description);
+    const [name, setName] = useState(temp? temp.name : "");
+    const [url, setUrl] = useState(temp ? temp.url : "");
+    const [description, setDescription] = useState(temp ? temp.description : "");
     const [nameValid, setNameValid] = useState(true);
     const [urlValid, setUrlValid] = useState(true);
 
@@ -26,7 +26,7 @@ export default function Edit() {
                     <input type="text" value={url} onChange={e => { setUrlValid(e.target.value.trim() !== ''); setUrl(e.target.value); }} className={urlValid ? '' : 'invalid'} />
                     <span className="error-message">{urlValid? '' : 'Required field!'}</span>
                 </label>
-                <label>
+                <label className="label-description">
                     Description
                     <textarea
                         className=""
@@ -35,7 +35,7 @@ export default function Edit() {
                         spellCheck="false"
                     ></textarea>
                 </label>
-                <div>
+                <div className="buttons">
                     <NavLink
                         to={(nameValid && urlValid) ? Page.ITEM + "/" + id : '#'}
                         exact={true}
@@ -44,16 +44,18 @@ export default function Edit() {
                         <button type="submit" className="primary-button" disabled={!nameValid || !urlValid} onClick={() => {
                             localStorage.setItem(id, JSON.stringify({ ...item, name, url, description }));
 
-                            const data = JSON.parse(localStorage.getItem("tree"));
-                            data.collection.map(wings => {
-                                wings.collection.map(item => {
-                                    if (item.id === id) {
-                                        item.name = name;
-                                    }
+                            if (localStorage.getItem("tree")) {
+                                const data = JSON.parse(localStorage.getItem("tree"));
+                                data && data.collection.map(wings => {
+                                    wings.collection.map(item => {
+                                        if (item.id === id) {
+                                            item.name = name;
+                                        }
+                                    });
                                 });
-                            });
 
-                            localStorage.setItem("tree", JSON.stringify(data));
+                                localStorage.setItem("tree", JSON.stringify(data));
+                            }
                         }}>
                             Save
                         </button>

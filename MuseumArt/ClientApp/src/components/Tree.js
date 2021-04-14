@@ -8,6 +8,8 @@ export default function Tree() {
     const [search, setSearch] = useState("");
     const [data, setData] = useState([]);
 
+    const [collapsed, setCollapsed] = useState(false);
+
     useEffect(() => {
         if (localStorage.getItem("tree") === null) {
             fetchData();
@@ -59,26 +61,30 @@ export default function Tree() {
 				</label>
 			</div>
 
-			<input type="search" value={search} onChange={e => setSearch(e.target.value)} />
-            <br />
+            <div className="search">
+			    <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
+                <i className="material-icons">search</i>
+            </div>
 
             <NavLink
                 to={Page.HOME}
                 exact={true}
-                className="navigation-item"
+                className="collection"
                 activeClassName=""
+                onClick={() => setCollapsed(!collapsed)}
             >
-                <div className="navigation-icon">
-                    {/*<i className="material-icons">...</i>*/}
-                </div>
-                <div className="navigation-heading">
+                <span className="heading">
+                    <i className="material-icons">{collapsed ? 'chevron_right' : 'expand_more'}</i>
                     {data.name}
-                </div>
+                </span>
             </NavLink>
-            <ul>
-                {data.collection && data.collection.map(wings => {
+                {!collapsed && data.collection && data.collection.map(wings => {
                     return (
-                        <li key={wings.id}>{wings.name}
+                        <div key={wings.id} className="wings">
+                            <span className="heading">
+                                <i className="material-icons">chevron_right</i>
+                                {wings.name}
+                            </span>
                             {
                                 wings.collection && wings.collection.filter(item =>
                                         item.name && item.name.toLowerCase().includes(search.toLowerCase())
@@ -88,24 +94,18 @@ export default function Tree() {
                                         <NavLink
                                             to={Page.ITEM + "/" + items.id}
                                             exact={true}
-                                            className="navigation-item"
+                                            className="items"
                                             activeClassName="active"
                                             key={items.id}
                                         >
-                                            <div className="navigation-icon">
-                                                {/*<i className="material-icons">...</i>*/}
-                                            </div>
-                                            <div className="navigation-heading">
-                                                {items.name}
-                                            </div>
+                                            {items.name}
                                         </NavLink>
                                     );
                                 })
                             }
-                        </li>
+                        </div>
                     );
                 })}
-            </ul>
 
         </div>
     );
