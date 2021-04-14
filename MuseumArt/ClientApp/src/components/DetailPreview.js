@@ -7,7 +7,11 @@ export default function DetailPreview() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetchData();
+        if (localStorage.getItem(id) === null) {
+            fetchData();
+        } else {
+            setData(JSON.parse(localStorage.getItem(id)));
+        }
     }, [id]);
 
     async function fetchData() {
@@ -21,7 +25,9 @@ export default function DetailPreview() {
                 }
             });
             if (response.status === 200) {
-                setData(await response.json());
+                const temp = await response.json();
+                setData(temp);
+                localStorage.setItem(id, JSON.stringify(temp));
             } else {
                 //
             }

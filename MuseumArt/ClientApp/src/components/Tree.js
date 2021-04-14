@@ -9,7 +9,11 @@ export default function Tree() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetchData();
+        if (localStorage.getItem("tree") === null) {
+            fetchData();
+        } else {
+            setData(JSON.parse(localStorage.getItem("tree")));
+        }
 	}, []);
 
     async function fetchData() {
@@ -23,7 +27,9 @@ export default function Tree() {
                 }
             });
             if (response.status === 200) {
-                setData(await response.json());
+                const temp = await response.json();
+                setData(temp);
+                localStorage.setItem("tree", JSON.stringify(temp));
             } else {
                 //
             }
